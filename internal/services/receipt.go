@@ -9,12 +9,12 @@ import (
 
 // Provide services related to processing the receipts
 type ReceiptService struct {
-	store repository.ReceiptStore
+	store *repository.ReceiptStore
 }
 
 // create a new instance of ReceiptService
-func NewReceiptService(store repository.ReceiptStore) ReceiptService {
-	return ReceiptService{store: store}
+func NewReceiptService(store *repository.ReceiptStore) *ReceiptService {
+	return &ReceiptService{store: store}
 }
 
 // Processes the receipt and return the receipt id

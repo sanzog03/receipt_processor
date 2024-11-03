@@ -13,8 +13,8 @@ type ReceiptStore struct {
 }
 
 // Create a new instance of Receipt Store
-func NewReceiptStore() ReceiptStore {
-	return ReceiptStore{
+func NewReceiptStore() *ReceiptStore {
+	return &ReceiptStore{
 		receipts: make(map[string]models.Receipt),
 	}
 }
