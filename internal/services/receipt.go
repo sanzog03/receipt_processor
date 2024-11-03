@@ -23,6 +23,10 @@ func (s *ReceiptService) ProcessReceipt(receipt models.Receipt) (string, error) 
 	id := s.generateId()
 	reward := s.calculateReward(receipt)
 	_, err := s.store.Set(id, receipt)
+	if err != nil {
+		return id, err
+	}
+	_, err = s.store.SetPoints(id, reward)
 	fmt.Println("new receipt with id:", id, " and value ", receipt)
 	fmt.Println("You have got: ", reward, " reward points.")
 	return id, err
@@ -35,7 +39,10 @@ func (s *ReceiptService) ReceiptPoints(id string) (int, error) {
 	}
 	// find the points for the receipt and return the point
 	fmt.Println("recepit", receipt)
-	points := 30
+	points, err := s.store.GetPoints(id)
+	if err != nil {
+		return -1, err
+	}
 	return points, nil
 }
 

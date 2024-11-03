@@ -8,14 +8,16 @@ import (
 )
 
 type ReceiptStore struct {
-	receipts map[string]models.Receipt
-	mu       sync.RWMutex
+	receipts      map[string]models.Receipt
+	receiptsPoint map[string]int
+	mu            sync.RWMutex
 }
 
 // Create a new instance of Receipt Store
 func NewReceiptStore() *ReceiptStore {
 	return &ReceiptStore{
-		receipts: make(map[string]models.Receipt),
+		receipts:      make(map[string]models.Receipt),
+		receiptsPoint: make(map[string]int),
 	}
 }
 
@@ -39,9 +41,19 @@ func (rs *ReceiptStore) Get(id string) (models.Receipt, error) {
 }
 
 // Delete the receipt with the id from the ReceiptStore
-func (rs *ReceiptStore) delete(id string) (string, error) {
+func (rs *ReceiptStore) Delete(id string) (string, error) {
 	rs.mu.Lock()
 	defer rs.mu.Lock()
 	delete(rs.receipts, id)
 	return id, nil
+}
+
+func (rs *ReceiptStore) SetPoints(id string, points int) (string, error) {
+	rs.receiptsPoint[id] = points
+	return id, nil
+}
+
+func (rs *ReceiptStore) GetPoints(id string) (int, error) {
+	points := rs.receiptsPoint[id]
+	return points, nil
 }

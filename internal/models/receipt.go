@@ -19,6 +19,11 @@ type Receipt struct {
 	Total        float64    `json:"total,string"`
 }
 
+// Structure of the receipt reward points
+type ReceiptPoints struct {
+	Points int `json:"points"`
+}
+
 // Response structure of the processReceipt
 type ReceiptResult struct {
 	Id string `json:"id"`
@@ -29,6 +34,7 @@ type PointsResult struct {
 	Points int `json:"points"`
 }
 
+// utils
 // Time struct to handle the input date time format in receipt
 type CustomTime struct {
 	time.Time
