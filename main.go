@@ -69,7 +69,6 @@ func generateId() string {
 }
 
 func calculateReward(receipt database.Receipt) int {
-
 	rules := []Rule{
 		alphanumericRule,
 		roundDollarRule,
@@ -79,33 +78,14 @@ func calculateReward(receipt database.Receipt) int {
 		oddPurchaseDateRule,
 		offTimePurchaseRule,
 	}
-	// pass the receipt through various rules
-	// for each passes, collect the rewarad
-	// find the accumulated reward.
-	// return that reward
+
 	total_reward := 0
-	for idx, rule := range rules {
+	for _, rule := range rules {
 		reward := rule(receipt)
-		if reward > 0 {
-			fmt.Println("reward from: rule_", idx, " is :", reward)
-		}
 		total_reward += reward
 	}
 
 	return total_reward
-
-	// To Note:
-	// we have multiple rules right now
-	// new rules can be added in the future
-	// so we need a mechanism:
-	// we pass the receipt to all the rules, not manually but automatically
-	// collect the amount automatically
-
-	// For the above given purpose, the rules is a list. we can add the rules to the list.
-	// we will go through each elements in the list and pass our receipt to them
-	// we will collect the reward value and add to the global total reward.
-	// we return the global total reward.
-
 }
 
 type Rule func(database.Receipt) int
@@ -177,7 +157,7 @@ func oddPurchaseDateRule(receipt database.Receipt) int {
 func offTimePurchaseRule(receipt database.Receipt) int {
 	// 10 points if the time of purchase is after 2:00pm and before 4:00pm.
 	// ct.Time.Format("15:04")
-	// 0000-01-01
+	// For time, set date to default 0000-01-01
 	purchaseTime := receipt.PurchaseTime
 
 	year := 0
