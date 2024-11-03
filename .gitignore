@@ -1,0 +1,50 @@
+# Binaries, plugins, libs
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+
+# Binary output directory
+/bin/
+
+# Environment variables file
+.env
+
+# Air temporary directory
+/tmp/
