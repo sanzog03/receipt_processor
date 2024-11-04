@@ -7,8 +7,15 @@ import (
 	api "receiptProcessor/internal/api"
 	"receiptProcessor/internal/repository"
 	service "receiptProcessor/internal/services"
+
+	_ "receiptProcessor/docs"
 )
 
+// @title Receipt Processor API
+// @version 1.0
+// @description This is a receipt processing service API, built as a part of Fech Rewards assessment challenge.
+// @host localhost:9080
+// @BasePath /
 func main() {
 	receiptRepository := repository.NewReceiptStore()
 	receiptService := service.NewReceiptService(receiptRepository)

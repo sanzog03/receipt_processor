@@ -1,0 +1,150 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a receipt processing service API, built as a part of Fech Rewards assessment challenge.",
+        "title": "Receipt Processor API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:9080",
+    "basePath": "/",
+    "paths": {
+        "/receipt/process": {
+            "post": {
+                "description": "Processes a receipt and returns a unique identifier",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "receipts"
+                ],
+                "summary": "Process a receipt",
+                "parameters": [
+                    {
+                        "description": "Receipt JSON",
+                        "name": "receipt",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/receiptProcessor_internal_models.Receipt"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully processed receipt",
+                        "schema": {
+                            "$ref": "#/definitions/receiptProcessor_internal_models.ReceiptResult"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid receipt data or Failed to process Receipt",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/receipt/{id}/points": {
+            "get": {
+                "description": "Retrieves the points associated with a specific receipt",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "receipts"
+                ],
+                "summary": "Get points for a receipt id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Receipt ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved points",
+                        "schema": {
+                            "$ref": "#/definitions/receiptProcessor_internal_models.PointsResult"
+                        }
+                    },
+                    "404": {
+                        "description": "Receipt not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "receiptProcessor_internal_models.CustomTime": {
+            "type": "object",
+            "properties": {
+                "time.Time": {
+                    "type": "string"
+                }
+            }
+        },
+        "receiptProcessor_internal_models.Item": {
+            "type": "object",
+            "properties": {
+                "price": {
+                    "type": "string",
+                    "example": "0"
+                },
+                "shortDescription": {
+                    "type": "string"
+                }
+            }
+        },
+        "receiptProcessor_internal_models.PointsResult": {
+            "type": "object",
+            "properties": {
+                "points": {
+                    "type": "integer"
+                }
+            }
+        },
+        "receiptProcessor_internal_models.Receipt": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/receiptProcessor_internal_models.Item"
+                    }
+                },
+                "purchaseDate": {
+                    "$ref": "#/definitions/receiptProcessor_internal_models.CustomTime"
+                },
+                "purchaseTime": {
+                    "$ref": "#/definitions/receiptProcessor_internal_models.CustomTime"
+                },
+                "retailer": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "string",
+                    "example": "0"
+                }
+            }
+        },
+        "receiptProcessor_internal_models.ReceiptResult": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

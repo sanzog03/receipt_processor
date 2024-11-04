@@ -1,0 +1,99 @@
+basePath: /
+definitions:
+  receiptProcessor_internal_models.CustomTime:
+    properties:
+      time.Time:
+        type: string
+    type: object
+  receiptProcessor_internal_models.Item:
+    properties:
+      price:
+        example: "0"
+        type: string
+      shortDescription:
+        type: string
+    type: object
+  receiptProcessor_internal_models.PointsResult:
+    properties:
+      points:
+        type: integer
+    type: object
+  receiptProcessor_internal_models.Receipt:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/receiptProcessor_internal_models.Item'
+        type: array
+      purchaseDate:
+        $ref: '#/definitions/receiptProcessor_internal_models.CustomTime'
+      purchaseTime:
+        $ref: '#/definitions/receiptProcessor_internal_models.CustomTime'
+      retailer:
+        type: string
+      total:
+        example: "0"
+        type: string
+    type: object
+  receiptProcessor_internal_models.ReceiptResult:
+    properties:
+      id:
+        type: string
+    type: object
+host: localhost:9080
+info:
+  contact: {}
+  description: This is a receipt processing service API, built as a part of Fech Rewards
+    assessment challenge.
+  title: Receipt Processor API
+  version: "1.0"
+paths:
+  /receipt/{id}/points:
+    get:
+      description: Retrieves the points associated with a specific receipt
+      parameters:
+      - description: Receipt ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved points
+          schema:
+            $ref: '#/definitions/receiptProcessor_internal_models.PointsResult'
+        "404":
+          description: Receipt not found
+          schema:
+            type: string
+      summary: Get points for a receipt id
+      tags:
+      - receipts
+  /receipt/process:
+    post:
+      consumes:
+      - application/json
+      description: Processes a receipt and returns a unique identifier
+      parameters:
+      - description: Receipt JSON
+        in: body
+        name: receipt
+        required: true
+        schema:
+          $ref: '#/definitions/receiptProcessor_internal_models.Receipt'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully processed receipt
+          schema:
+            $ref: '#/definitions/receiptProcessor_internal_models.ReceiptResult'
+        "400":
+          description: Invalid receipt data or Failed to process Receipt
+          schema:
+            type: string
+      summary: Process a receipt
+      tags:
+      - receipts
+swagger: "2.0"
