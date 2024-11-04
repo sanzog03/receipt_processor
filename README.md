@@ -35,7 +35,7 @@ Make sure that the docker is up and running. Then
     go mod download
     ```
 - Run Test
-    ```bash
+    ```
     go test ./...
     ```
 - Run Swag
@@ -65,9 +65,15 @@ Make sure that the docker is up and running. Then
 
 The application will run on `http://localhost:9080` port
 
-1. Using Swagger api docs runs on [http://localhost:9080/swagger/index.html](http://localhost:9080/swagger/index.html)
+1. Run all *go test*:
+    
+    From the root of the project, run
+    ```
+    go test ./...
+    ```
+2. Using Swagger api docs runs on [http://localhost:9080/swagger/index.html](http://localhost:9080/swagger/index.html)
     Use the swagger docs to test the endpoints.
-2. Using Curl
+3. Using Curl
     - To add a receipt
         ```
         curl -X POST   -H "Content-Type: application/json"   -d '

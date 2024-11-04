@@ -14,7 +14,6 @@ RUN apt update && apt install make git
 
 # Copy the application source code
 COPY . .
-RUN ls -l
 
 # Install swagger
 RUN go install github.com/swaggo/swag/cmd/swag@latest
