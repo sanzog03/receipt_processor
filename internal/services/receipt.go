@@ -33,12 +33,7 @@ func (s *ReceiptService) ProcessReceipt(receipt models.Receipt) (string, error) 
 }
 
 func (s *ReceiptService) ReceiptPoints(id string) (int, error) {
-	receipt, error := s.store.Get(id)
-	if error != nil {
-		return -1, error
-	}
 	// find the points for the receipt and return the point
-	fmt.Println("recepit", receipt)
 	points, err := s.store.GetPoints(id)
 	if err != nil {
 		return -1, err

@@ -54,6 +54,10 @@ func (rs *ReceiptStore) SetPoints(id string, points int) (string, error) {
 }
 
 func (rs *ReceiptStore) GetPoints(id string) (int, error) {
-	points := rs.receiptsPoint[id]
-	return points, nil
+	points, exists := rs.receiptsPoint[id]
+	if exists {
+		return points, nil
+	} else {
+		return -1, errors.New("key does not exist")
+	}
 }
