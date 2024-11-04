@@ -16,20 +16,22 @@ RUN apt update && apt install make git
 COPY . .
 RUN ls -l
 
+# Install swagger
+RUN go install github.com/swaggo/swag/cmd/swag@latest
 # Build application
-RUN make build
+RUN make all
 
-# Staging 
+# new stage
 FROM alpine:latest 
 
-RUN mkdir /config
+RUN mkdir /configs
 COPY --from=builder /receiptProcessor/main /usr/local/bin/
-# COPY --from=builder /receiptProcessor/config/config.yml /config/config.yml
+COPY --from=builder /receiptProcessor/configs/config.yml /configs/config.yml
 # Give Execution permission
 RUN chmod +x /usr/local/bin/main
 
 # Expose port 9080
-EXPOSE  9080
+EXPOSE 9080
 
 # Entrypoint
 CMD ["main"]

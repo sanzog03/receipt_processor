@@ -12,15 +12,24 @@ MAIN=./cmd/server/main.go
 BINARY_NAME=main
 
 # Targets
+
+all: test swagger build
+
+swagger:
+	swag init -g cmd/server/main.go   
+	swag init -g cmd/server/main.go --parseDependency --parseInternal  
+
 build:
 	$(GOBUILD) -o $(BINARY_NAME) $(MAIN)
 
 test:
-	$(GOTEST) -v ./tests/...
+	$(GOTEST) -v ./...
 
 clean:
 	$(GOCLEAN)
 	rm -f $(BINARY_NAME)
 
 run:
-	$(GORUN)  $(MAIN)
+	$(GORUN) $(MAIN)
+
+.PHONY: swagger build test clean run
