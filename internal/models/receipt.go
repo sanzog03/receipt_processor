@@ -13,8 +13,8 @@ type Item struct {
 
 type Receipt struct {
 	Retailer     string     `json:"retailer"`
-	PurchaseDate CustomTime `json:"purchaseDate"`
-	PurchaseTime CustomTime `json:"purchaseTime"`
+	PurchaseDate CustomTime `json:"purchaseDate" swaggertype:"string"`
+	PurchaseTime CustomTime `json:"purchaseTime" swaggertype:"string"`
 	Items        []Item     `json:"items"`
 	Total        float64    `json:"total,string"`
 }

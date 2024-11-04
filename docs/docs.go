@@ -92,14 +92,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "receiptProcessor_internal_models.CustomTime": {
-            "type": "object",
-            "properties": {
-                "time.Time": {
-                    "type": "string"
-                }
-            }
-        },
         "receiptProcessor_internal_models.Item": {
             "type": "object",
             "properties": {
@@ -130,10 +122,10 @@ const docTemplate = `{
                     }
                 },
                 "purchaseDate": {
-                    "$ref": "#/definitions/receiptProcessor_internal_models.CustomTime"
+                    "type": "string"
                 },
                 "purchaseTime": {
-                    "$ref": "#/definitions/receiptProcessor_internal_models.CustomTime"
+                    "type": "string"
                 },
                 "retailer": {
                     "type": "string"
