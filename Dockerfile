@@ -28,8 +28,8 @@ COPY --from=builder /receiptProcessor/config/config.yml /config/config.yml
 # Give Execution permission
 RUN chmod +x /usr/local/bin/main
 
-# Expose port 808
-EXPOSE  8080
+# Expose port 9080
+EXPOSE  9080
 
 # Entrypoint
 CMD ["main"]
