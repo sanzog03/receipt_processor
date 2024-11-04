@@ -8,6 +8,8 @@ import (
 	"receiptProcessor/internal/repository"
 	service "receiptProcessor/internal/services"
 
+	"github.com/spf13/viper"
+
 	_ "receiptProcessor/docs"
 )
 
@@ -17,10 +19,23 @@ import (
 // @host localhost:9080
 // @BasePath /
 func main() {
+	config()
 	receiptRepository := repository.NewReceiptStore()
 	receiptService := service.NewReceiptService(receiptRepository)
 	router := api.SetupRoutes(receiptService)
 
-	log.Println("Server starting on port 9080...")
-	log.Fatal(http.ListenAndServe(":9080", router))
+	port := viper.GetString("server.port")
+	log.Println("Server starting on port " + port + "...")
+	log.Fatal(http.ListenAndServe(":"+port, router))
+}
+
+func config() {
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath("./config")
+	err := viper.ReadInConfig()
+	if err != nil {
+		// Handle error
+		log.Fatalf("Error loading config %s", err)
+	}
 }

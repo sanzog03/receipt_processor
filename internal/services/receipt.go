@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"receiptProcessor/internal/models"
 	"receiptProcessor/internal/repository"
 
@@ -28,8 +27,6 @@ func (s *ReceiptService) ProcessReceipt(receipt models.Receipt) (string, error) 
 		return id, err
 	}
 	_, err = s.store.SetPoints(id, reward)
-	fmt.Println("new receipt with id:", id, " and value ", receipt)
-	fmt.Println("You have got: ", reward, " reward points.")
 	return id, err
 }
 
