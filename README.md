@@ -16,7 +16,7 @@ The application needs following installed.
 
 ### Usage: To Run the application
 
-#### 1. User docker
+#### 1. Use docker
 Make sure that the docker is up and running. Then
 
 - Build
@@ -28,7 +28,7 @@ Make sure that the docker is up and running. Then
     docker compose up
     ```
 
-#### 2. User Go
+#### 2. Use Go
 
 - Install dependency
     ``` bash
