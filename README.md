@@ -70,30 +70,33 @@ The application will run on `http://localhost:9080` port
 2. Using Curl
     - To add a receipt
         ```
-        curl -X POST   -H "Content-Type: application/json"   -d '{
-        "retailer": "Target",
-        "purchaseDate": "2022-01-01",
-        "purchaseTime": "13:01",
-        "items": [
-            {
-            "shortDescription": "Mountain Dew 12PK",
-            "price": "6.49"
-            },{
-            "shortDescription": "Emils Cheese Pizza",
-            "price": "12.25"
-            "price": "1.26"
-            },{
-            "shortDescription": "Doritos Nacho Cheese",
-            "price": "3.35"
-            },{
-            "shortDescription": "   Klarbrunn 12-PK 12 FL OZ  ",
-            "price": "12.00"
-            }
-        ],
-        "total": "35.35"
-        }' http://localhost:9080/receipt/process
+        curl -X POST   -H "Content-Type: application/json"   -d '
+        {   
+            "retailer": "Target",
+            "purchaseDate": "2022-01-01",
+            "purchaseTime": "13:01",
+            "items": [
+                {
+                "shortDescription": "Mountain Dew 12PK",
+                "price": "6.49"
+                },{
+                "shortDescription": "Emils Cheese Pizza",
+                "price": "12.25"
+                },{
+                "shortDescription": "Knorr Creamy Chicken",
+                "price": "1.26"
+                },{
+                "shortDescription": "Doritos Nacho Cheese",
+                "price": "3.35"
+                },{
+                "shortDescription": "   Klarbrunn 12-PK 12 FL OZ  ",
+                "price": "12.00"
+                }
+            ],
+            "total": "35.35"
+        }, ' http://localhost:9080/receipts/process
         ```
     - To get the point for the receipt id
         ```
-        curl http://localhost:9080/receipt/{id}/points
+        curl http://localhost:9080/receipts/{id}/points
         ```

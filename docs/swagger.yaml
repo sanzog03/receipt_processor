@@ -42,7 +42,7 @@ info:
   title: Receipt Processor API
   version: "1.0"
 paths:
-  /receipt/{id}/points:
+  /receipts/{id}/points:
     get:
       description: Retrieves the points associated with a specific receipt
       parameters:
@@ -65,7 +65,7 @@ paths:
       summary: Get points for a receipt id
       tags:
       - receipts
-  /receipt/process:
+  /receipts/process:
     post:
       consumes:
       - application/json

@@ -30,8 +30,8 @@ func setup() *testSetup {
 	handler := handlers.NewReceiptHandler(mockService)
 
 	router := mux.NewRouter()
-	router.HandleFunc("/receipt/process", handler.ProcessReceipt).Methods("POST")
-	router.HandleFunc("/receipt/{id}/points", handler.ReceiptPoints).Methods("GET")
+	router.HandleFunc("/receipts/process", handler.ProcessReceipt).Methods("POST")
+	router.HandleFunc("/receipts/{id}/points", handler.ReceiptPoints).Methods("GET")
 
 	testID := uuid.New().String()
 	id, _ := mockRepo.SetPoints(testID, 123)
@@ -93,7 +93,7 @@ func TestReceiptHandlerProcessReceipt(t *testing.T) {
 
 	for _, testcase := range tests {
 		t.Run(testcase.name, func(t *testing.T) {
-			req, err := http.NewRequest("POST", "/receipt/process", bytes.NewBuffer(testcase.payload))
+			req, err := http.NewRequest("POST", "/receipts/process", bytes.NewBuffer(testcase.payload))
 			require.NoError(t, err)
 
 			responseRecorder := httptest.NewRecorder()
@@ -140,7 +140,7 @@ func TestReceiptHandlerReceiptPointsByID(t *testing.T) {
 	}
 
 	for _, testcase := range tests {
-		req, err := http.NewRequest("GET", "/receipt/"+testcase.id+"/points", nil)
+		req, err := http.NewRequest("GET", "/receipts/"+testcase.id+"/points", nil)
 		require.NoError(t, err)
 
 		responseRecorder := httptest.NewRecorder()

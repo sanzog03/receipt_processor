@@ -16,8 +16,8 @@ func SetupRoutes(receiptService *receipt.ReceiptService) *mux.Router {
 
 	receiptHandler := handlers.NewReceiptHandler(receiptService)
 
-	router.HandleFunc("/receipt/process", receiptHandler.ProcessReceipt).Methods("POST")
-	router.HandleFunc("/receipt/{id}/points", receiptHandler.ReceiptPoints).Methods("GET")
+	router.HandleFunc("/receipts/process", receiptHandler.ProcessReceipt).Methods("POST")
+	router.HandleFunc("/receipts/{id}/points", receiptHandler.ReceiptPoints).Methods("GET")
 
 	// go routes
 	router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)

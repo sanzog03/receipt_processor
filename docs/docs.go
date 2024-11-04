@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/receipt/process": {
+        "/receipts/process": {
             "post": {
                 "description": "Processes a receipt and returns a unique identifier",
                 "consumes": [
@@ -55,7 +55,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/receipt/{id}/points": {
+        "/receipts/{id}/points": {
             "get": {
                 "description": "Retrieves the points associated with a specific receipt",
                 "produces": [

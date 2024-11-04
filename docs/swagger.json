@@ -9,7 +9,7 @@
     "host": "localhost:9080",
     "basePath": "/",
     "paths": {
-        "/receipt/process": {
+        "/receipts/process": {
             "post": {
                 "description": "Processes a receipt and returns a unique identifier",
                 "consumes": [
@@ -49,7 +49,7 @@
                 }
             }
         },
-        "/receipt/{id}/points": {
+        "/receipts/{id}/points": {
             "get": {
                 "description": "Retrieves the points associated with a specific receipt",
                 "produces": [

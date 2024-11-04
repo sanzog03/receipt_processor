@@ -16,8 +16,7 @@ BINARY_NAME=main
 all: test swagger build
 
 swagger:
-	swag init -g cmd/server/main.go   
-	swag init -g cmd/server/main.go --parseDependency --parseInternal  
+	swag init -g cmd/server/main.go --parseDependency --parseInternal
 
 build:
 	$(GOBUILD) -o $(BINARY_NAME) $(MAIN)

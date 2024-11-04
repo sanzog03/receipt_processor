@@ -27,8 +27,8 @@ func setup() *testSetup {
 	handler := handlers.NewReceiptHandler(mockService)
 
 	router := mux.NewRouter()
-	router.HandleFunc("/receipt/process", handler.ProcessReceipt).Methods("POST")
-	router.HandleFunc("/receipt/{id}/points", handler.ReceiptPoints).Methods("GET")
+	router.HandleFunc("/receipts/process", handler.ProcessReceipt).Methods("POST")
+	router.HandleFunc("/receipts/{id}/points", handler.ReceiptPoints).Methods("GET")
 
 	testID := uuid.New().String()
 	id, _ := mockRepo.SetPoints(testID, 123)

@@ -26,7 +26,7 @@ func NewReceiptHandler(service *service.ReceiptService) *ReceiptHandler {
 // @Param receipt body models.Receipt true "Receipt JSON"
 // @Success 200 {object} models.ReceiptResult "Successfully processed receipt"
 // @Failure 400 {string} string "Invalid receipt data or Failed to process Receipt"
-// @Router /receipt/process [post]
+// @Router /receipts/process [post]
 func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) {
 	log.Println("ReceiptHandler::ProcessReceipt: started processing the receipt.")
 	var receipt models.Receipt
@@ -56,7 +56,7 @@ func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) 
 // @Param id path string true "Receipt ID"
 // @Success 200 {object} models.PointsResult "Successfully retrieved points"
 // @Failure 404 {string} string "Receipt not found"
-// @Router /receipt/{id}/points [get]
+// @Router /receipts/{id}/points [get]
 func (h *ReceiptHandler) ReceiptPoints(w http.ResponseWriter, r *http.Request) {
 	log.Println("ReceiptHandler::ReceiptPoints: started processing the receipt points.")
 	vars := mux.Vars(r)
