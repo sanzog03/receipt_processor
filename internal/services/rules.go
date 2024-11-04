@@ -8,9 +8,14 @@ import (
 	"unicode"
 )
 
-type Rule func(models.Receipt) int
+type Rule interface {
+	process(receipt models.Receipt) int
+}
 
-func alphanumericRule(receipt models.Receipt) int {
+// alphanumericRule
+type Rule1 struct{}
+
+func (r Rule1) process(receipt models.Receipt) int {
 	// One point for every alphanumeric character in the retailer name.
 	retailerName := receipt.Retailer
 
@@ -24,7 +29,10 @@ func alphanumericRule(receipt models.Receipt) int {
 	return count
 }
 
-func roundDollarRule(receipt models.Receipt) int {
+// roundDollarRule
+type Rule2 struct{}
+
+func (r Rule2) process(receipt models.Receipt) int {
 	// 50 points if the total is a round dollar amount with no cents.
 	receiptTotal := receipt.Total
 	if math.Mod(receiptTotal, 1.0) == 0 {
@@ -33,7 +41,10 @@ func roundDollarRule(receipt models.Receipt) int {
 	return 0
 }
 
-func multipleOfQuaterRule(receipt models.Receipt) int {
+// multipleOfQuaterRule
+type Rule3 struct{}
+
+func (r Rule3) process(receipt models.Receipt) int {
 	// 25 points if the total is a multiple of 0.25
 	receiptTotal := receipt.Total
 	if math.Mod(receiptTotal, 0.25) == 0 {
@@ -42,7 +53,10 @@ func multipleOfQuaterRule(receipt models.Receipt) int {
 	return 0
 }
 
-func pairRule(receipt models.Receipt) int {
+// pairRule
+type Rule4 struct{}
+
+func (r Rule4) process(receipt models.Receipt) int {
 	// 5 points for every two items on the receipt
 	receiptItems := receipt.Items
 	pairs := len(receiptItems) / 2
@@ -50,7 +64,10 @@ func pairRule(receipt models.Receipt) int {
 	return points
 }
 
-func multipleOfThreeRule(receipt models.Receipt) int {
+// multipleOfThreeRule
+type Rule5 struct{}
+
+func (r Rule5) process(receipt models.Receipt) int {
 	// If the trimmed length of the item description is a multiple of 3, multiply the price by 0.2 and round up to the nearest integer. The result is the number of points earned.
 	receiptItems := receipt.Items
 	reward := 0
@@ -64,7 +81,10 @@ func multipleOfThreeRule(receipt models.Receipt) int {
 	return reward
 }
 
-func oddPurchaseDateRule(receipt models.Receipt) int {
+// oddPurchaseDateRule
+type Rule6 struct{}
+
+func (r Rule6) process(receipt models.Receipt) int {
 	// 6 points if the day in the purchase date is odd.
 	purchaseDate := receipt.PurchaseDate
 	day := purchaseDate.Day()
@@ -74,7 +94,10 @@ func oddPurchaseDateRule(receipt models.Receipt) int {
 	return 0
 }
 
-func offTimePurchaseRule(receipt models.Receipt) int {
+// offTimePurchaseRule
+type Rule7 struct{}
+
+func (r Rule7) process(receipt models.Receipt) int {
 	// 10 points if the time of purchase is after 2:00pm and before 4:00pm.
 	// ct.Time.Format("15:04")
 	// For time, set date to default 0000-01-01

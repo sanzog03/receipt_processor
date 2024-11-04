@@ -45,18 +45,18 @@ func (s *ReceiptService) generateId() string {
 
 func (s *ReceiptService) calculateReward(receipt models.Receipt) int {
 	rules := []Rule{
-		alphanumericRule,
-		roundDollarRule,
-		multipleOfQuaterRule,
-		pairRule,
-		multipleOfThreeRule,
-		oddPurchaseDateRule,
-		offTimePurchaseRule,
+		Rule1{},
+		Rule2{},
+		Rule3{},
+		Rule4{},
+		Rule5{},
+		Rule6{},
+		Rule7{},
 	}
 
 	total_reward := 0
 	for _, rule := range rules {
-		reward := rule(receipt)
+		reward := rule.process(receipt)
 		total_reward += reward
 	}
 

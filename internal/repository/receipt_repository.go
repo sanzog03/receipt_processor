@@ -7,6 +7,15 @@ import (
 	"receiptProcessor/internal/models"
 )
 
+// Store interface
+type Store interface {
+	Set(id string, receipt models.Receipt)
+	Get(id string)
+	Delete(id string)
+	SetPoints(id string, points int)
+	GetPoints(id string)
+}
+
 type ReceiptStore struct {
 	receipts      map[string]models.Receipt
 	receiptsPoint map[string]int
