@@ -2,14 +2,13 @@ package service_test
 
 import (
 	"encoding/json"
-	"fmt"
 	handlers "receiptProcessor/internal/api/handler"
 	"receiptProcessor/internal/models"
 	"receiptProcessor/internal/repository"
 	service "receiptProcessor/internal/services"
 	"testing"
-	"time"
 
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"github.com/stretchr/testify/assert"
 )
@@ -31,7 +30,7 @@ func setup() *testSetup {
 	router.HandleFunc("/receipt/process", handler.ProcessReceipt).Methods("POST")
 	router.HandleFunc("/receipt/{id}/points", handler.ReceiptPoints).Methods("GET")
 
-	testID := fmt.Sprintf("%d", time.Now().UnixNano())
+	testID := uuid.New().String()
 	id, _ := mockRepo.SetPoints(testID, 123)
 
 	return &testSetup{

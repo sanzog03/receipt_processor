@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"receiptProcessor/internal/models"
 	"receiptProcessor/internal/repository"
-	"time"
+
+	"github.com/google/uuid"
 )
 
 // Provide services related to processing the receipts
@@ -42,7 +43,7 @@ func (s *ReceiptService) ReceiptPoints(id string) (int, error) {
 }
 
 func (s *ReceiptService) generateId() string {
-	return fmt.Sprintf("%d", time.Now().UnixNano())
+	return uuid.New().String()
 }
 
 func (s *ReceiptService) calculateReward(receipt models.Receipt) int {
