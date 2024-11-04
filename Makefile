@@ -5,15 +5,11 @@ GORUN=$(GOCMD) run
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 
-# Main package name
-MAIN=receiptProcessor
+# Main package dir
+MAIN=./cmd/server/main.go
 
 # Output binary name
 BINARY_NAME=main
-
-# Swagger parameters
-SWAGGER_OUT=docs
-SWAGGER_DIR=cmd,internal
 
 # Targets
 build:

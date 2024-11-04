@@ -1,5 +1,5 @@
 # Use official Go runtime
-FROM golang:1.21.1 as builder
+FROM golang:1.23.2 as builder
 
 # Ensure Go compiler builds a static linked binary
 ENV CGO_ENABLED=0
@@ -17,14 +17,14 @@ COPY . .
 RUN ls -l
 
 # Build application
-RUN make all
+RUN make build
 
 # Staging 
 FROM alpine:latest 
 
 RUN mkdir /config
 COPY --from=builder /receiptProcessor/main /usr/local/bin/
-COPY --from=builder /receiptProcessor/config/config.yml /config/config.yml
+# COPY --from=builder /receiptProcessor/config/config.yml /config/config.yml
 # Give Execution permission
 RUN chmod +x /usr/local/bin/main
 
