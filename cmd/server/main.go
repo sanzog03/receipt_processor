@@ -19,7 +19,7 @@ import (
 // @host localhost:9080
 // @BasePath /
 func main() {
-	config()
+	loadconfig()
 	receiptRepository := repository.NewReceiptStore()
 	receiptService := service.NewReceiptService(receiptRepository)
 	router := api.SetupRoutes(receiptService)
@@ -29,10 +29,10 @@ func main() {
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }
 
-func config() {
+func loadconfig() {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("./config")
+	viper.AddConfigPath("./Configs")
 	err := viper.ReadInConfig()
 	if err != nil {
 		// Handle error
