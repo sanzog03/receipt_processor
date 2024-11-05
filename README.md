@@ -1,5 +1,7 @@
 # Receipt Processor
 
+By: Sanjog Thapa
+
 ## Objective
 
 The objective is to create a web service that processes receipt data and calculates points based on specific rules. The service should expose two endpoints: one for processing receipts and another for retrieving points for a processed receipt.
@@ -106,3 +108,13 @@ The application will run on `http://localhost:9080` port
         ```
         curl http://localhost:9080/receipts/{id}/points
         ```
+
+## Project Detail
+- This application is built in `Go` using `net/http` and `mux`.
+- InMemory Database is used for the implementation.
+
+## Future Considerations
+- Persistance database can be added.
+- Creating Unique entry for duplicate receipts can be implemented.
+- Further adding validations and error handlings.
+- Adding more tests for extended coverage.
