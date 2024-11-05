@@ -36,6 +36,7 @@ func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) 
 		http.Error(w, "Invalid receipt data", http.StatusBadRequest)
 		return
 	}
+
 	// create a id
 	id, err := h.service.ProcessReceipt(receipt)
 	if err != nil {
