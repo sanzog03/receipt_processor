@@ -5,16 +5,16 @@ import (
 	"log"
 	"net/http"
 	"receiptProcessor/internal/models"
-	service "receiptProcessor/internal/services"
+	"receiptProcessor/internal/services"
 
 	"github.com/gorilla/mux"
 )
 
 type ReceiptHandler struct {
-	service *service.ReceiptService
+	service *services.ReceiptService
 }
 
-func NewReceiptHandler(service *service.ReceiptService) *ReceiptHandler {
+func NewReceiptHandler(service *services.ReceiptService) *ReceiptHandler {
 	return &ReceiptHandler{service: service}
 }
 

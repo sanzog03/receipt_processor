@@ -1,8 +1,8 @@
 package api
 
 import (
-	handlers "receiptProcessor/internal/api/handler"
-	receipt "receiptProcessor/internal/services"
+	"receiptProcessor/internal/api/handlers"
+	"receiptProcessor/internal/services"
 
 	_ "receiptProcessor/docs"
 
@@ -11,7 +11,7 @@ import (
 )
 
 // setup http routes
-func SetupRoutes(receiptService *receipt.ReceiptService) *mux.Router {
+func SetupRoutes(receiptService *services.ReceiptService) *mux.Router {
 	router := mux.NewRouter()
 
 	receiptHandler := handlers.NewReceiptHandler(receiptService)

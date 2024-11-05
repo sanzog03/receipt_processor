@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	api "receiptProcessor/internal/api"
+	"receiptProcessor/internal/api"
 	"receiptProcessor/internal/repository"
-	service "receiptProcessor/internal/services"
+	"receiptProcessor/internal/services"
 
 	"github.com/spf13/viper"
 
@@ -21,7 +21,7 @@ import (
 func main() {
 	loadconfig()
 	receiptRepository := repository.NewReceiptStore()
-	receiptService := service.NewReceiptService(receiptRepository)
+	receiptService := services.NewReceiptService(receiptRepository)
 	router := api.SetupRoutes(receiptService)
 
 	port := viper.GetString("server.port")

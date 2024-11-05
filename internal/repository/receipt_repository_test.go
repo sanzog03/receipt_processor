@@ -1,9 +1,9 @@
 package repository_test
 
 import (
-	handlers "receiptProcessor/internal/api/handler"
+	"receiptProcessor/internal/api/handlers"
 	"receiptProcessor/internal/repository"
-	service "receiptProcessor/internal/services"
+	"receiptProcessor/internal/services"
 	"testing"
 
 	"github.com/google/uuid"
@@ -15,13 +15,13 @@ type testSetup struct {
 	handler     *handlers.ReceiptHandler
 	router      *mux.Router
 	mockRepo    *repository.ReceiptStore
-	mockService *service.ReceiptService
+	mockService *services.ReceiptService
 	testID      string
 }
 
 func setup() *testSetup {
 	mockRepo := repository.NewReceiptStore()
-	mockService := service.NewReceiptService(mockRepo)
+	mockService := services.NewReceiptService(mockRepo)
 	handler := handlers.NewReceiptHandler(mockService)
 
 	router := mux.NewRouter()
