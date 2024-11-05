@@ -2,21 +2,24 @@ package models
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"time"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type Item struct {
-	ShortDescription string  `json:"shortDescription"`
-	Price            float64 `json:"price,string"`
+	ShortDescription string  `json:"shortDescription" validate:"required,ValidateReceiptItemShortDesc"`
+	Price            float64 `json:"price,string" validate:"required,ValidateReceiptItemPrice"`
 }
 
 type Receipt struct {
-	Retailer     string     `json:"retailer"`
-	PurchaseDate CustomTime `json:"purchaseDate" swaggertype:"string"`
-	PurchaseTime CustomTime `json:"purchaseTime" swaggertype:"string"`
-	Items        []Item     `json:"items"`
-	Total        float64    `json:"total,string"`
+	Retailer     string     `json:"retailer" validate:"required,ValidateRetailerName"`
+	PurchaseDate CustomTime `json:"purchaseDate" swaggertype:"string" validate:"required,datetime=2006-01-02"`
+	PurchaseTime CustomTime `json:"purchaseTime" swaggertype:"string" validate:"required,datetime=15:04"`
+	Items        []Item     `json:"items" validate:"required,min=1,dive,required"`
+	Total        float64    `json:"total,string" validate:"required,ValidateReceiptTotal"`
 }
 
 // Structure of the receipt reward points
@@ -58,4 +61,39 @@ func (ct CustomTime) MarshalJSON() ([]byte, error) {
 		return []byte(fmt.Sprintf("\"%s\"", ct.Time.Format("2006-01-02"))), nil
 	}
 	return []byte(fmt.Sprintf("\"%s\"", ct.Time.Format("15:04"))), nil
+}
+
+// VALIDATORS
+
+func validateRegex(pattern string, fieldToValidate string) bool {
+	matched, _ := regexp.MatchString(pattern, fieldToValidate)
+	return matched
+}
+
+// custom field validator for retailer name
+func ValidateRetailerName(f validator.FieldLevel) bool {
+	retailer := f.Field().String()
+	pattern := `^[\w\s\-&]+$`
+	return validateRegex(pattern, retailer)
+}
+
+// custom field validator for the total of a receipts
+func ValidateReceiptTotal(f validator.FieldLevel) bool {
+	total := f.Field().String()
+	pattern := `^\d+\.\d{2}$`
+	return validateRegex(pattern, total)
+}
+
+// custom field validator for short description field
+func ValidateReceiptItemShortDesc(f validator.FieldLevel) bool {
+	desc := f.Field().String()
+	pattern := `^[\w\s\-]+$`
+	return validateRegex(pattern, desc)
+}
+
+// custom field validator for the receipt item price
+func ValidateReceiptItemPrice(f validator.FieldLevel) bool {
+	price := f.Field().String()
+	pattern := `\d+\.\d{2}$`
+	return validateRegex(pattern, price)
 }

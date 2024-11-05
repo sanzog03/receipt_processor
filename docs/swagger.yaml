@@ -7,6 +7,9 @@ definitions:
         type: string
       shortDescription:
         type: string
+    required:
+    - price
+    - shortDescription
     type: object
   receiptProcessor_internal_models.PointsResult:
     properties:
@@ -18,6 +21,7 @@ definitions:
       items:
         items:
           $ref: '#/definitions/receiptProcessor_internal_models.Item'
+        minItems: 1
         type: array
       purchaseDate:
         type: string
@@ -28,6 +32,12 @@ definitions:
       total:
         example: "0"
         type: string
+    required:
+    - items
+    - purchaseDate
+    - purchaseTime
+    - retailer
+    - total
     type: object
   receiptProcessor_internal_models.ReceiptResult:
     properties:

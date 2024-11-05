@@ -94,6 +94,10 @@ const docTemplate = `{
     "definitions": {
         "receiptProcessor_internal_models.Item": {
             "type": "object",
+            "required": [
+                "price",
+                "shortDescription"
+            ],
             "properties": {
                 "price": {
                     "type": "string",
@@ -114,9 +118,17 @@ const docTemplate = `{
         },
         "receiptProcessor_internal_models.Receipt": {
             "type": "object",
+            "required": [
+                "items",
+                "purchaseDate",
+                "purchaseTime",
+                "retailer",
+                "total"
+            ],
             "properties": {
                 "items": {
                     "type": "array",
+                    "minItems": 1,
                     "items": {
                         "$ref": "#/definitions/receiptProcessor_internal_models.Item"
                     }

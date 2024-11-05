@@ -32,7 +32,7 @@ func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) 
 	var receipt models.Receipt
 	err := json.NewDecoder(r.Body).Decode(&receipt)
 	if err != nil {
-		log.Println("ReceiptHandler::ProcessReceipt: error decoding the receipt.")
+		log.Println("ReceiptHandler::ProcessReceipt: error decoding the receipt.", err)
 		http.Error(w, "Invalid receipt data", http.StatusBadRequest)
 		return
 	}
@@ -44,9 +44,15 @@ func (h *ReceiptHandler) ProcessReceipt(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	log.Println("ReceiptHandler::ProcessReceipt: receipt processed.")
 	response := models.ReceiptResult{Id: id}
 	w.Header().Set("Content-Type", "applicaiton/json")
-	json.NewEncoder(w).Encode(response)
+	err = json.NewEncoder(w).Encode(response)
+	if err != nil {
+		log.Printf("ReceiptHandler::ProcessReceipt: error Encoding the reponse: %v\n", err)
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		return
+	}
 }
 
 // @Summary Get points for a receipt id
@@ -71,7 +77,9 @@ func (h *ReceiptHandler) ReceiptPoints(w http.ResponseWriter, r *http.Request) {
 
 	response := models.PointsResult{Points: points}
 	w.Header().Set("Content-Type", "application/json")
-	if err := json.NewEncoder(w).Encode(response); err != nil {
+	log.Printf("ReceiptHandler::ReceiptPoints: points extracted for the receipt ID %s\n", id)
+	err = json.NewEncoder(w).Encode(response)
+	if err != nil {
 		log.Printf("ReceiptHandler::ReceiptPoints: error Encoding the reponse %s: %v\n", id, err)
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
 		return
